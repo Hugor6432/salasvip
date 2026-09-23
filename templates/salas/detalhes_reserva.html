@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<h1>Detalhes da Reserva</h1>
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ reserva.sala.nome }}</h5>
+                <div class="mb-3">
+                    <strong>Responsável:</strong>
+                    <p>{{ reserva.responsavel }}</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <strong>Data de Início:</strong>
+                        <p>{{ reserva.data_inicio|date:"d/m/Y H:i" }}</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Data de Fim:</strong>
+                        <p>{{ reserva.data_fim|date:"d/m/Y H:i" }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <strong>Status:</strong>
+                        <p>
+                            {% if reserva.status == 'confirmada' %}
+                                <span class="badge bg-success">Confirmada</span>
+                            {% elif reserva.status == 'pendente' %}
+                                <span class="badge bg-warning">Pendente</span>
+                            {% else %}
+                                <span class="badge bg-danger">Cancelada</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>Recorrência:</strong>
+                        <p>{% if reserva.recorrencia %}{{ reserva.recorrencia.get_frequencia_display }}{% else %}-{% endif %}</p>
+                    </div>
+                </div>
+                {% if reserva.descricao %}
+                    <div class="mb-3">
+                        <strong>Descrição:</strong>
+                        <p>{{ reserva.descricao }}</p>
+                    </div>
+                {% endif %}
+                {% if reserva.tem_conflito %}
+                    <div class="alert alert-warning">
+                        <strong>⚠️ Aviso:</strong> Esta reserva tem conflito com outra no mesmo horário!
+                    </div>
+                {% endif %}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <a href="{% url 'editar_reserva' reserva.id %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'deletar_reserva' reserva.id %}" class="btn btn-danger">Deletar</a>
+                    <a href="{% url 'lista_reservas' %}" class="btn btn-secondary">Voltar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

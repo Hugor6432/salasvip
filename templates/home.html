@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<div class="text-center py-5">
+    <h1>👋 Bem-vindo!</h1>
+    <p class="lead mt-3">Sistema de Reserva de Salas - P1</p>
+    
+    <div class="row mt-5">
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>📍 Salas</h5>
+                    <p>Gerencie as salas disponíveis</p>
+                    <a href="{% url 'lista_salas' %}" class="btn btn-primary">Acessar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>📅 Reservas</h5>
+                    <p>Faça e gerencie reservas</p>
+                    <a href="{% url 'lista_reservas' %}" class="btn btn-primary">Acessar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

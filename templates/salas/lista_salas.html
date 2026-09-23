@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<div class="row mb-4">
+    <div class="col-md-8"><h1>Salas</h1></div>
+    <div class="col-md-4 text-end"><a href="{% url 'criar_sala' %}" class="btn btn-primary">+ Nova Sala</a></div>
+</div>
+
+{% if salas %}
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Nome</th>
+                <th>Capacidade</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sala in salas %}
+            <tr>
+                <td>{{ sala.nome }}</td>
+                <td>{{ sala.capacidade }}</td>
+                <td>{{ sala.descricao|truncatewords:10 }}</td>
+                <td>
+                    <a href="{% url 'editar_sala' sala.id %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'deletar_sala' sala.id %}" class="btn btn-sm btn-danger">Deletar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">
+    Nenhuma sala cadastrada ainda. <a href="{% url 'criar_sala' %}">Criar uma agora</a>
+</div>
+{% endif %}
+{% endblock %}
